@@ -22,7 +22,7 @@ pipeline {
                 script {
                     sh "virtualenv -p python3 ${VENV_NAME}"
                     sh "cd /bitnami/jenkins/home/workspace/Retail-project_feature1/${VENV_NAME}"
-                    sh "source /bin/activate"
+                    sh ". /bin/activate"
                     sh "pip3 install -r req.txt"
                 }
                 echo 'build successful'
