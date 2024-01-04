@@ -13,9 +13,8 @@ pipeline {
             steps {
                 script {
                     sh "pip install --user pipenv"
-                    sh "bitnami/jenkins/home/.local/bin/pipenv install"
-                    sh "bitnami/jenkins/home/.local/bin/pipenv run shell"
-                }
+                    sh "bitnami/jenkins/home/.local/bin/pipenv --rm || exit 0"
+                    sh "bitnami/jenkins/home/.local/bin/pipenv install"                }
                 echo 'build successful'
             }
         }
