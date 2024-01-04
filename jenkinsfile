@@ -26,6 +26,7 @@ pipeline {
                     sh "bitnami/jenkins/home/.local/bin/pipenv run pytest"
                 }
                 echo 'Test successful'
+            }
         }
 
         stage('Package') {
@@ -35,10 +36,10 @@ pipeline {
             echo 'Package successful'
         }
 
-        stage('Deploy')
-        {
-         sh "sshpass -p $LABS_PSWscp -o StrictHostKeyChecking=no -r .
-         $LABS_USR@g02.itversity.com:/home/itv009030/retailproject_CICD"   
+        stage('Deploy'){
+            steps {
+                sh "sshpass -p $LABS_PSW scp . $LABS_USR@g02.itversity.com:/home/itv009030/retailproject_CICD"   
+            }
         }
     }
 }
