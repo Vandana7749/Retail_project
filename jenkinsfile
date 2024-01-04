@@ -1,36 +1,43 @@
 pipeline {
     agent any
-    
-        stages{
-        
-        stage('Build') {
+
+    environment {
+        VENV_NAME = 'virtual_retail'
+        PYTHON_VERSION = '3.9.2'
+    }
+
+    stages {
+        stage('Checkout') {
             steps {
-                // Build your project (replace 'your-build-command' with the actual build command)
-                echo 'build-command'
-            }
-        }
-        
-        stage('Test') {
-            steps {
-                // Run tests (replace 'your-test-command' with the actual test command)
-                echo 'test-command'
+                // Assuming you are using Git. Adjust this if you are using a different version control system.
+                script {
+                    checkout scm
+                }
             }
         }
 
-        stage('UAT') {
+        stage('build') {
             steps {
-                // Run tests (replace 'your-test-command' with the actual test command)
-                echo 'UAT-command'
+                script {
+                    // Install Python if needed
+                    sh "sudo apt-get update && sudo apt-get install -y python${PYTHON_VERSION}"
+                    sh "python${PYTHON_VERSION} -m venv ${VENV_NAME}"
+                    sh "source ${VENV_NAME}/bin/activate"
+                    sh "${VENV_NAME}/bin/pip install -r req.txt"
+                }
             }
         }
-        
-        stage('Deploy') {
+
+        stage('test') {
             steps {
-                // Deploy your application (replace 'your-deploy-command' with the actual deploy command)
-                echo 'deploy-command'
+                echo 'test'
             }
         }
+
+        stage('deploy') {
+            steps {
+                echo 'Deploy'
+            }
         }
     }
-    
-
+}
