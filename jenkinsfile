@@ -2,8 +2,9 @@ pipeline {
     agent any
 
     environment {
+
+        LABS = credentials('labcreds')
         VENV_NAME = 'virtual_retail'
-        PYTHON_VERSION = '3.9.2'
     }
 
     stages {
@@ -19,12 +20,11 @@ pipeline {
         stage('build') {
             steps {
                 script {
-                    // Install Python if needed
-                    // sh "sudo apt-get update && sudo apt-get install -y python${PYTHON_VERSION}"
                     sh "python3 -m venv ${VENV_NAME}"
-                    sh "source ${VENV_NAME}/bin/activate"
-                    sh "pip install -r req.txt"
+                    sh ". ${VENV_NAME}/bin/activate"
+                    sh "pip3 install -r req.txt"
                 }
+                echo 'build successful'
             }
         }
 
