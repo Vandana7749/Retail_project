@@ -8,22 +8,11 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                // Assuming you are using Git. Adjust this if you are using a different version control system.
-                script {
-                    checkout scm
-                }
-            }
-        }
-
+        
         stage('build') {
             steps {
                 script {
-                    sh "cd ~"
-                    sh "virtualenv -p python3 ${VENV_NAME}"
-                    sh "/${VENV_NAME}/bin/activate"
-                    sh "pip3 install -r req.txt"
+                    sh "pip install --user pipenv"
                 }
                 echo 'build successful'
             }
