@@ -9,25 +9,36 @@ pipeline {
 
     stages {
         
-        stage('build') {
+        stage('Build') {
             steps {
                 script {
                     sh "pip install --user pipenv"
+                    sh "bitnami/jenkins/home/.local/bin/pipenv install"
                 }
                 echo 'build successful'
             }
         }
 
-        stage('test') {
+        stage('Test') {
             steps {
-                echo 'test'
-            }
+                script {
+                    sh "pipenv install pytest"
+                    sh "bitnami/jenkins/home/.local/bin/pipenv run pytest"
+                }
+                echo 'Test successful'
         }
 
-        stage('deploy') {
+        stage('Package') {
             steps {
-                echo 'Deploy'
+                sh "zip -r retail_project.zip ."
             }
+            echo 'Package successful'
+        }
+
+        stage('Deploy')
+        {
+         sh "sshpass -p $LABS_PSWscp -o StrictHostKeyChecking=no -r .
+         $LABS_USR@g02.itversity.com:/home/itv009030/retailproject_CICD"   
         }
     }
 }
