@@ -20,8 +20,8 @@ pipeline {
         stage('build') {
             steps {
                 script {
-                    sh "python3 -m venv ${VENV_NAME}"
-                    sh ". ${VENV_NAME}/bin/activate"
+                    sh "virtualenv -p python3 ${VENV_NAME}"
+                    sh "source ${VENV_NAME}/bin/activate"
                     sh "pip3 install -r req.txt"
                 }
                 echo 'build successful'
