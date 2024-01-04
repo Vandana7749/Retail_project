@@ -1,9 +1,7 @@
 pipeline {
     agent any
     
-        environment{
-            LABS = credentials('labcreds')
-        }
+        stages{
         
         stage('Build') {
             steps {
@@ -31,6 +29,7 @@ pipeline {
                 // Deploy your application (replace 'your-deploy-command' with the actual deploy command)
                 echo 'deploy-command'
             }
+        }
         }
     }
     
