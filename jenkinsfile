@@ -32,13 +32,15 @@ pipeline {
         stage('Package') {
             steps {
                 sh "zip -r retail_project.zip ."
+                echo 'Package successful'
             }
-            echo 'Package successful'
+            
         }
 
         stage('Deploy'){
             steps {
                 sh "sshpass -p $LABS_PSW scp . $LABS_USR@g02.itversity.com:/home/itv009030/retailproject_CICD"   
+                echo "Deploy successful"
             }
         }
     }
