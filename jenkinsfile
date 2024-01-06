@@ -22,7 +22,7 @@ pipeline {
         stage('Test'){
             steps {
                 script {
-                    sh '/bitnami/jenkins/home/workspace/Retail-project_feature1/pytest -v'
+                    sh 'bitnami/jenkins/home/.local/bin/pytest -v'
                 }
                 echo "Test Successful"
             }
