@@ -14,7 +14,8 @@ pipeline {
                 script {
                     sh "pip install --user pipenv"
                     sh "bitnami/jenkins/home/.local/bin/pipenv --rm || exit 0"
-                    sh "bitnami/jenkins/home/.local/bin/pipenv install"                }
+                    sh "bitnami/jenkins/home/.local/bin/pipenv install"                
+                    }
                 echo 'build successful'
             }
         }
@@ -22,7 +23,7 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    sh "pipenv install pytest"
+                    sh "bitnami/jenkins/home/.local/bin/pipenv install pytest"
                     sh "bitnami/jenkins/home/.local/bin/pipenv run pytest"
                 }
                 echo 'Test successful'
