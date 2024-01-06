@@ -5,6 +5,7 @@ pipeline {
 
         LABS = credentials('labcreds')
         VENV_NAME = 'virtual_retail'
+        PATH = "$PATH:/bitnami/jenkins/home/.local/bin"
     }
 
     stages {
@@ -15,7 +16,6 @@ pipeline {
                     sh 'virtualenv -p /usr/bin/python3 $VENV_NAME'
                     sh '. $VENV_NAME/bin/activate'
                     sh 'pip3 install -r req.txt'
-                    sh 'export PATH=$PATH:/bitnami/jenkins/home/.local/bin'
                 }
             }
         }
@@ -23,7 +23,7 @@ pipeline {
         stage('Test'){
             steps {
                 script {
-                    sh 'bitnami/jenkins/home/.local/bin/pytest -v'
+                    sh 'pytest -v'
                 }
                 echo "Test Successful"
             }
