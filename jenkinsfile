@@ -23,7 +23,6 @@ pipeline {
         stage('Test'){
             steps {
                 script {
-                    sh 'export PATH=$PATH:/bitnami/jenkins/home/.local/bin'
                     sh 'bitnami/jenkins/home/.local/bin/pytest -v'
                 }
                 echo "Test Successful"
