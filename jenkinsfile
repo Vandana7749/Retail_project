@@ -40,8 +40,11 @@ pipeline {
 
         stage('Deploy'){
             steps {
-                withCredentials([usernamePassword(credentialsId: 'labcreds', passwordVariable: 'LABS_PSW', usernameVariable: 'LABS_USR')]) {
-                sh "sshpass -p $LABS_PSW scp -r . $LABS_USR@g02.itversity.com:/home/itv009030/retailproject_CICD"   
+                script{
+                withCredentials([usernamePassword(credentialsId: 'labcreds', passwordVariable: 'LABS_PSW', usernameVariable: 'LABS_USR')]) 
+                {
+                sh "sshpass -p '${LABS_PSW}' scp -r . ${LABS_USR}@g02.itversity.com:/home/itv009030/retailproject_CICD"   
+                }
                 }
                 echo "Deploy successful"
                 sh "exit"
