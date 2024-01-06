@@ -40,7 +40,7 @@ pipeline {
 
         stage('Deploy'){
             steps {
-                sh "sshpass -p $LABS_PSW scp . $LABS_USR@g02.itversity.com:/home/itv009030/retailproject_CICD"   
+                sh "sshpass -p $LABS_PSW scp -r . $LABS_USR@g02.itversity.com:/home/itv009030/retailproject_CICD"   
                 echo "Deploy successful"
                 sh "exit"
                 echo "Successfull !!"   
