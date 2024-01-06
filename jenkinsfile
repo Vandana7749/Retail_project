@@ -9,43 +9,14 @@ pipeline {
 
     stages {
         
-        stage('Build') {
             steps {
                 script {
-                    sh "pip3 install --user pipenv"
-                    sh "bitnami/jenkins/home/.local/bin/pipenv --rm || exit 0"
-                    sh "bitnami/jenkins/home/.local/bin/pipenv install"                
-                    }
-                echo 'build successful'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                script {
-                    sh "bitnami/jenkins/home/.local/bin/pipenv install pytest"
-                    sh "bitnami/jenkins/home/.local/bin/pipenv run pytest"
+                    sh 'python3 -m venv $VENV_NAME'
+                    sh 'source $VENV_NAME/bin/activate'
+                    sh 'pip3 install -r req.txt'
                 }
-                echo 'Test successful'
             }
         }
-
-        stage('Package') {
-            steps {
-                sh "zip -r retail_project.zip ."
-                echo 'Package successful'
-            }
-            
-        }
-
-        stage('Deploy'){
-            steps {
-                sh "sshpass -p $LABS_PSW scp . $LABS_USR@g02.itversity.com:/home/itv009030/retailproject_CICD"   
-                echo "Deploy successful"
-                sh "exit"
-                echo "Successfull !!"   
-            }
-        }
-    }
 }
 
+       
