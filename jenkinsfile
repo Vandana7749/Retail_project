@@ -13,7 +13,7 @@ pipeline {
                 script {
                     sh 'pip3 install virtualenv'
                     sh 'virtualenv -p /usr/bin/python3 $VENV_NAME'
-                    sh 'source $VENV_NAME/bin/activate'
+                    sh '. $VENV_NAME/bin/activate'
                     sh 'pip3 install -r req.txt'
                 }
             }
