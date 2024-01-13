@@ -45,7 +45,6 @@ pipeline {
                 sh('sshpass -p $LABS_PSW scp -o StrictHostKeyChecking=no -r . $LABS_USR@g01.itversity.com:/home/itv009030/retailproject_CICD')
                 // }            }
                 echo "Deploy successful"
-                sh "deactivate"
                 echo "Successfull !!"   
             }
         }
